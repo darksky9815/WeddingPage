@@ -1,0 +1,7 @@
+{
+  "name": "WeddingPageFiles",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

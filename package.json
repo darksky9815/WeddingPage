@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@capacitor/google-maps": "^7.0.2",
+    "@swimlane/ngx-datatable": "^21.0.0",
+    "capacitor-email-composer": "^7.0.0"
+  }
+}
