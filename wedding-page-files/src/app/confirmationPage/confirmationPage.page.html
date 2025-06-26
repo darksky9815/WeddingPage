@@ -15,7 +15,10 @@
         <h3 class="tittles">{{GuestName}}</h3>
         <div *ngIf="validateGuest">
           <ion-checkbox [(ngModel)]="isAttending" style="white-space: pre-line;">{{mensajeParaConfirmar}}</ion-checkbox>
-          
+          <div *ngIf="familyGuest != null">
+            <h3 class="tittles">{{familyGuest.guestName}}</h3>
+            <ion-checkbox [(ngModel)]="familyGuest.confirmation" style="white-space: pre-line;">{{mensajeParaConfirmar}}</ion-checkbox>
+          </div>
           <div *ngIf="guest && guest.numberofPlus !== null && guest.numberofPlus > 0">
             <h3 class="tittles">Acompañantes:</h3>
             <div *ngFor="let numberofPlus of plusGuest; let i = index">

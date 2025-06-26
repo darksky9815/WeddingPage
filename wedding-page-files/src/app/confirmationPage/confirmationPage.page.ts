@@ -28,6 +28,7 @@ export class ConfirmationPage implements OnInit {
   GuestName = "";
   plusGuest: PlusGuestResp[] = [];
   guest: Guests | null = null;
+  familyGuest: Guests | null = null;
   validateGuest: boolean = false;
   mensajeParaConfirmar = "";
   ConfirmationMessage = "";
@@ -38,18 +39,18 @@ export class ConfirmationPage implements OnInit {
   ngOnInit() {
   }
   async onEnter(){
+    this.plusGuest = [];
     this.Warning = "";
-    this.GuestName = "";
-    
+    this.GuestName = "";    
     this.validateGuest = await this.ValidateGuestName();
-  }
-
-  
+  }  
 
   onChange() {
     this.Warning = "";
     this.validateGuest = false;
     this.guest = null;
+    this.familyGuest = null;
+    this.isAttending = false;
     this.GuestName = "";
     this.ConfirmationMessage = "";
     this.plusGuest = [];
@@ -66,12 +67,7 @@ export class ConfirmationPage implements OnInit {
       return false;
     }
 
-    await this.findGuest();
-
-    if(this.guest === null){
-      this.Warning = "No se encuentra en la lista de invitados.";
-      return false;
-    }
+    if(await this.findGuest() === false){return false;}
 
     this.GuestName = this.guest?.guestName ?? "";
     this.isAttending = this.guest?.confirmation ?? false;
@@ -118,9 +114,30 @@ export class ConfirmationPage implements OnInit {
       this.guest = await new Promise<Guests | null>((resolve, reject) => {
       this.apiService.findGuest(this.guestNameValue).subscribe({
         next: (data) => resolve(data as Guests),
-        error: () => resolve(null)
-      });
-    });    
+        error: (err) => {
+          // The error message from ASP.NET Core is usually in err.error
+          const message = err.error || 'An error occurred';
+          // Display the message (e.g., with an alert or toast)
+          this.Warning = message;
+          return false;
+        }      
+      });    
+      }); 
+
+      if(this.guest?.familyId != null){
+          this.familyGuest = await new Promise<Guests | null>((resolve, reject) => {
+            this.apiService.findFamilyGuest(this.guest?.familyId!, this.guest?.id!).subscribe({
+              next: (data) => resolve(data as Guests),
+              error: (err) => {
+                // The error message from ASP.NET Core is usually in err.error
+                const message = err.error || 'An error occurred';
+                // Display the message (e.g., with an alert or toast)
+                console.log(message);
+              }
+            });
+          });
+        }   
+    return true;
   }
 
   onBlurPlusGuest(index: number) {
@@ -153,8 +170,8 @@ export class ConfirmationPage implements OnInit {
       return;
     }
 
-    if(this.plusGuest.every(a => a.plusGuestName === "") && this.plusGuest.some(a => a.confirmation !== null || 
-      a.confirmation !== undefined || a.confirmation !== false)){
+    if(this.guest?.numberofPlus !== null && this.plusGuest.every(a => a.plusGuestName === "") && this.plusGuest.some(a =>a.confirmation !== null && a.confirmation === true )) 
+    {
       this.Warning = "Favor de ingresar al menos un nombre de acompañante.";
       return;
     }
@@ -169,25 +186,41 @@ export class ConfirmationPage implements OnInit {
         id: this.guest.id,
         confirmation: this.isAttending
       };
+
       if(this.plusGuest.length !== 0){               
-        this.apiService.updateGuestAndPlus(this.plusGuest).subscribe({
+        this.apiService.postPlusConfirme(this.plusGuest).subscribe({
           error: (err) => {
           console.error(err);
           this.Warning = "Error al enviar la confirmación.";
         }}) 
       }
-      this.apiService.updateGuest(guestConfirmation).subscribe({
+
+      if(this.guest.familyId !== null && (this.familyGuest !== undefined || this.familyGuest !== null)){
+        const familyGuestConfirmation: GuestsResp = {
+          id: this.familyGuest?.id!,
+          confirmation: this.familyGuest?.confirmation!
+        };
+        this.apiService.postGuestConfirme(familyGuestConfirmation).subscribe({
+          error: (err) => {
+            console.error(err);
+            this.Warning = `Error al enviar la confirmación de ${this.familyGuest?.guestName}.`;
+          }
+        });
+      }
+
+      this.apiService.postGuestConfirme(guestConfirmation).subscribe({
       next: () => {
-        this.ConfirmationMessage = `Confirmación enviada. ${this.guest?.confirmation ? "\nYa reservamos tu silla, tu plato… y tu pedazo de bizcocho.\n¡Nos hace muy felices saber que vienes! " : "\nTe vamos a extrañar, pero entendemos.\nPrometemos compartir fotos, chismes y tal vez una selfie con el bizcocho."}`;
+        this.ConfirmationMessage = this.mensajeDeconfirmacion();
         this.guestNameValue = "";
         this.validateGuest = false;
         this.guest = null;      
         this.plusGuest = [];
         this.plusGuestWarnings = [];
+        this.Warning = "";
       },
       error: (err) => {
         console.error(err);
-        this.Warning = "Error al enviar la confirmación.";
+        this.Warning += `Error al enviar la confirmación de ${this.guest?.guestName}.`;
         }
       });
           
@@ -195,4 +228,22 @@ export class ConfirmationPage implements OnInit {
       this.Warning = "Invitado no encontrado.";
     }
   }
-}
+
+  mensajeDeconfirmacion() {
+      const mensajeGuestConfirmacion = "\nYa reservamos tu silla, tu plato… y tu pedazo de bizcocho.\n¡Nos hace muy felices saber que vienes! ";
+      const mensajeGuestNoConfirmacion = "\nTe vamos a extrañar, pero entendemos.\nPrometemos compartir fotos, chismes y tal vez una selfie con el bizcocho.";
+      const mensajeFamilyConfirmacion = this.familyGuest ? `\n${this.familyGuest.guestName} también ha confirmado su asistencia.` : "";
+      const mensajeFamilyNoConfirmacion = this.familyGuest ? `\n${this.familyGuest.guestName} también confirmo` : "";
+    
+      return !this.familyGuest ? this.isAttending ? mensajeGuestConfirmacion 
+      : mensajeGuestNoConfirmacion : 
+      this.isAttending && this.familyGuest?.confirmation === true ?
+      mensajeGuestConfirmacion + mensajeFamilyConfirmacion : 
+      !this.isAttending && this.familyGuest?.confirmation === true ?
+      mensajeGuestNoConfirmacion + mensajeFamilyConfirmacion + mensajeGuestConfirmacion : 
+      this.isAttending && this.familyGuest?.confirmation === false ?
+      mensajeGuestConfirmacion + mensajeFamilyNoConfirmacion + "." + mensajeGuestNoConfirmacion : 
+      !this.isAttending && this.familyGuest?.confirmation === false ? 
+      mensajeGuestNoConfirmacion + mensajeFamilyNoConfirmacion + ", te vamos a extrañar." : "";
+    }
+  }

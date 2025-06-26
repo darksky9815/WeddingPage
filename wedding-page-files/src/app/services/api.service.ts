@@ -18,12 +18,15 @@ export class ApiService {
   findGuest(value:string){
     return this.http.get(this.apiUrl+`/GetGuest/${value}`);
   }
+  findFamilyGuest(familyId:number, guestId:number){
+    return this.http.get(this.apiUrl+`/GetFamilyGuest/${familyId}/${guestId}`);
+  }
 
-  updateGuest(guest: GuestsResp) {
+  postGuestConfirme(guest: GuestsResp) {
     return this.http.post(this.apiUrl+"/GuestConfirme", guest);
   }
 
-  updateGuestAndPlus(plusGuest: PlusGuestResp[]) {
+  postPlusConfirme(plusGuest: PlusGuestResp[]) {
     return this.http.post(this.apiUrl+"/GuestPlusConfirme", plusGuest);
   }
 }

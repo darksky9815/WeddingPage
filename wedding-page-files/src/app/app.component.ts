@@ -28,6 +28,7 @@ export interface Guests {
   numberofPlus: number | null;
   confirmationDate: Date | null;
   plusGuest: PlusGuest[] | null;
+  familyId: number | null;
 }
 
 export interface PlusGuest {
