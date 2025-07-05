@@ -191,7 +191,7 @@ export class ConfirmationPage implements OnInit {
         this.apiService.postPlusConfirme(this.plusGuest).subscribe({
           error: (err) => {
           console.error(err);
-          this.Warning = "Error al enviar la confirmación.";
+          this.Warning = "Error al enviar la confirmación de los acompañantes.";
         }}) 
       }
 
