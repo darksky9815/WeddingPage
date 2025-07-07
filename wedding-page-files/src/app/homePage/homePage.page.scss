@@ -27,33 +27,33 @@ ion-menu-button {
 }
 
 .rightUpperCorner{ 
-  // width: 100vmin;
-  // height: 100vmin;
   position: absolute;
   top: 0;
   right: 0;
+  z-index: 10;
+  width: 225px;
 }
 
 .leftUpperCorner{ 
-  // width: 100vmin;
-  // height: 100vmin;
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 10;
+  width: 225px;
 }
 
 .rightBottomCorner{ 
-  // width: 100vmin;
-  // height: 100vmin;
+  width: 225px;
   position: absolute;
   right: 0;
+  z-index: 10
 }
 
 .leftBottomCorner{ 
-  // width: 100vmin;
-  // height: 100vmin;
+  width: 225px;
   position: absolute;
   left: 0;
+  z-index: 10;
 }
 
 .ion-padding{
@@ -63,6 +63,24 @@ ion-menu-button {
   align-items: center;
   align-content: center;
   justify-content: center;
+}
+
+.map {
+  position: relative;
+  width: 100%;
+  max-width: 900vmin; // Increase this value for a larger map
+  margin: 2rem auto 1rem auto;
+  padding-bottom: 56.25%; // 16:9 aspect ratio
+  height: 0;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+.map iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .header{

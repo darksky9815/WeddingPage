@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Guests, GuestsResp, PlusGuestResp} from '../app.component';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class ApiService {
-  private apiUrl = 'https://localhost:44392/api/Guests'; // Change to your API endpoint
+  private apiUrl = environment.apiUrl; // Change to your API endpoint
 
   constructor(private http: HttpClient) {}
 
