@@ -26,34 +26,32 @@ ion-menu-button {
   text-decoration: none;
 }
 
-.rightUpperCorner{ 
+.rightUpperCorner,
+.leftUpperCorner,
+.rightBottomCorner,
+.leftBottomCorner {
   position: absolute;
+  z-index: 10;
+  width: clamp(150px, 35vw, 225px); // min: 100px, ideal: 15vw, max: 225px
+  height: auto;
+}
+
+.rightUpperCorner{ 
   top: 0;
   right: 0;
-  z-index: 10;
-  width: 225px;
 }
 
 .leftUpperCorner{ 
-  position: absolute;
   top: 0;
   left: 0;
-  z-index: 10;
-  width: 225px;
 }
 
 .rightBottomCorner{ 
-  width: 225px;
-  position: absolute;
   right: 0;
-  z-index: 10
 }
 
 .leftBottomCorner{ 
-  width: 225px;
-  position: absolute;
   left: 0;
-  z-index: 10;
 }
 
 .ion-padding{
@@ -68,9 +66,9 @@ ion-menu-button {
 .map {
   position: relative;
   width: 100%;
-  max-width: 900vmin; // Increase this value for a larger map
+  max-width: 900vmin; 
   margin: 2rem auto 1rem auto;
-  padding-bottom: 56.25%; // 16:9 aspect ratio
+  padding-bottom: 56.25%; 
   height: 0;
   overflow: hidden;
   margin-bottom: 1rem;
