@@ -7,30 +7,32 @@
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding">
-    <div>
-        <h1 class="tittles">Formulario de confirmacion</h1>
-        <ion-label>Favor de ingresar su nombre</ion-label>
-        <ion-input [(ngModel)]="guestNameValue" placeholder="Ingrese el nombre" style="width: 50%; margin: 0 auto;" (keyup.enter)="onEnter()" (ionInput)="onChange()"></ion-input>
-        <ion-label class="warning">{{Warning}}</ion-label>
-        <h3 class="tittles">{{GuestName}}</h3>
-        <div *ngIf="validateGuest">
-          <ion-checkbox [(ngModel)]="isAttending" style="white-space: pre-line;">{{mensajeParaConfirmar}}</ion-checkbox>
-          <div *ngIf="familyGuest != null">
-            <h3 class="tittles">{{familyGuest.guestName}}</h3>
-            <ion-checkbox [(ngModel)]="familyGuest.confirmation" style="white-space: pre-line;">{{mensajeParaConfirmar}}</ion-checkbox>
-          </div>
-          <div *ngIf="guest && guest.numberofPlus !== null && guest.numberofPlus > 0">
-            <h3 class="tittles">Acompañantes:</h3>
-            <div *ngFor="let numberofPlus of plusGuest; let i = index">
-              <ion-input [(ngModel)]="plusGuest[i].plusGuestName" placeholder="Ingrese el nombre del acompañante" style="width: 50%; margin: 0 auto;" (ionChange)="onChangePlusGuest(i)" (ionBlur)="onBlurPlusGuest(i)"></ion-input>
-              <ion-label class="warning" *ngIf="plusGuestWarnings[i]">{{ plusGuestWarnings[i] }}</ion-label>
-              <ion-checkbox [(ngModel)]="plusGuest[i].confirmation">¿Acompañará a {{guestNameValue}}?</ion-checkbox>              
-            </div>
-            <br>
+  <div>
+    <h1 class="tittles">Formulario de confirmacion</h1>
+    <ion-label>Favor de ingresar su nombre</ion-label>
+    <ion-input [(ngModel)]="guestNameValue" placeholder="Ingrese el nombre" style="width: 50%; margin: 0 auto;" (keyup.enter)="onEnter()" (ionInput)="onChange()"></ion-input>        
+    <ion-spinner name="circles" *ngIf="loading"></ion-spinner>
+    <ion-label class="warning">{{Warning}}</ion-label>
+    <h3 class="tittles">{{GuestName}}</h3>
+      <div *ngIf="validateGuest">
+        <ion-checkbox [(ngModel)]="isAttending" style="white-space: pre-line;">{{mensajeParaConfirmar}}</ion-checkbox>
+        <div *ngIf="familyGuest != null">
+          <h3 class="tittles">{{familyGuest.guestName}}</h3>
+          <ion-checkbox [(ngModel)]="familyGuest.confirmation" style="white-space: pre-line;">{{mensajeParaConfirmar}}</ion-checkbox>
+        </div>
+        <div *ngIf="guest && guest.numberofPlus !== null && guest.numberofPlus > 0">
+          <h3 class="tittles">Acompañantes:</h3>
+          <div *ngFor="let numberofPlus of plusGuest; let i = index">
+            <ion-input [(ngModel)]="plusGuest[i].plusGuestName" placeholder="Ingrese el nombre del acompañante" style="width: 50%; margin: 0 auto;" (ionChange)="onChangePlusGuest(i)" (ionBlur)="onBlurPlusGuest(i)"></ion-input>
+            <ion-label class="warning" *ngIf="plusGuestWarnings[i]">{{ plusGuestWarnings[i] }}</ion-label>
+            <ion-checkbox [(ngModel)]="plusGuest[i].confirmation">¿Acompañará a {{guestNameValue}}?</ion-checkbox>              
           </div>
           <br>
+        </div>
+        <br>
         <ion-button expand="block" style="width: 50%; margin: 0 auto;" (click)="onClick()">Confirmar</ion-button>
+        <ion-spinner name="circles" *ngIf="loading"></ion-spinner>
       </div>  
-      <h4>{{ConfirmationMessage}}</h4>      
-    </div>
+    <h4>{{ConfirmationMessage}}</h4>      
+  </div>
 </ion-content>

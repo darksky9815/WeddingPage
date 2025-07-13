@@ -14,13 +14,13 @@ function isEmpty(text: string): boolean {
   return text == null || text.match(/^\s*$/) !== null;
 }
 
+
 @Component({
   standalone: false,
   selector: 'app-confirmation',
   templateUrl: './confirmationPage.page.html',
   styleUrls: ['./confirmationPage.page.scss'],
 })
-
 export class ConfirmationPage implements OnInit {
   isAttending: boolean = false;
   guestNameValue = "";
@@ -33,16 +33,20 @@ export class ConfirmationPage implements OnInit {
   mensajeParaConfirmar = "";
   ConfirmationMessage = "";
   plusGuestWarnings: string[] = [];
+  loading: boolean = false;
   //private activatedRoute = inject(ActivatedRoute);
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService) {}  
 
   ngOnInit() {
-  }
+}
+
   async onEnter(){
     this.plusGuest = [];
     this.Warning = "";
-    this.GuestName = "";    
+    this.GuestName = "";   
+    this.loading = true;
     this.validateGuest = await this.ValidateGuestName();
+    this.loading = false;
   }  
 
   onChange() {
@@ -115,10 +119,9 @@ export class ConfirmationPage implements OnInit {
       this.apiService.findGuest(this.guestNameValue).subscribe({
         next: (data) => resolve(data as Guests),
         error: (err) => {
-          // The error message from ASP.NET Core is usually in err.error
           const message = err.error || 'An error occurred';
-          // Display the message (e.g., with an alert or toast)
           this.Warning = message;
+          this.loading = false;
           return false;
         }      
       });    
@@ -129,9 +132,8 @@ export class ConfirmationPage implements OnInit {
             this.apiService.findFamilyGuest(this.guest?.familyId!, this.guest?.id!).subscribe({
               next: (data) => resolve(data as Guests),
               error: (err) => {
-                // The error message from ASP.NET Core is usually in err.error
                 const message = err.error || 'An error occurred';
-                // Display the message (e.g., with an alert or toast)
+                this.loading = false;
                 console.log(message);
               }
             });
@@ -166,6 +168,7 @@ export class ConfirmationPage implements OnInit {
   }
   
   onClick() {
+    this.loading = true;
     if (!this.validateGuest) {
       return;
     }
@@ -191,6 +194,7 @@ export class ConfirmationPage implements OnInit {
         this.apiService.postPlusConfirme(this.plusGuest).subscribe({
           error: (err) => {
           console.error(err);
+          this.loading = false;
           this.Warning = "Error al enviar la confirmación de los acompañantes.";
         }}) 
       }
@@ -203,6 +207,7 @@ export class ConfirmationPage implements OnInit {
         this.apiService.postGuestConfirme(familyGuestConfirmation).subscribe({
           error: (err) => {
             console.error(err);
+            this.loading = false;
             this.Warning = `Error al enviar la confirmación de ${this.familyGuest?.guestName}.`;
           }
         });
@@ -220,6 +225,7 @@ export class ConfirmationPage implements OnInit {
       },
       error: (err) => {
         console.error(err);
+        this.loading = false;
         this.Warning += `Error al enviar la confirmación de ${this.guest?.guestName}.`;
         }
       });
@@ -227,6 +233,7 @@ export class ConfirmationPage implements OnInit {
     } else {
       this.Warning = "Invitado no encontrado.";
     }
+    this.loading = false;
   }
 
   mensajeDeconfirmacion() {
