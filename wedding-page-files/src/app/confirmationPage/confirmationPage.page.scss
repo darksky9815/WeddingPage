@@ -49,3 +49,19 @@ ion-input{
 .warning{
   color: darkred;
 }
+
+.responsive-inline-text {
+  display: inline;
+  white-space: normal;
+  word-break: break-word;
+}
+
+.inline-checkbox {
+  vertical-align: middle;
+  padding: 0 !important;
+  --padding-start: 0px;
+  --padding-end: 0px;
+  --min-width: auto;
+  --size: 20px; // you can reduce if needed
+  transform: translateY(1px); // optional tweak to align better with text
+}

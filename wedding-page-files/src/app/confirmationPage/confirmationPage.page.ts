@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Guests, PlusGuestResp, GuestsResp } from '../app.component';
 import { ApiService } from '../services/api.service';
@@ -13,7 +13,6 @@ function isString(value: string): boolean {
 function isEmpty(text: string): boolean {
   return text == null || text.match(/^\s*$/) !== null;
 }
-
 
 @Component({
   standalone: false,
@@ -40,7 +39,8 @@ export class ConfirmationPage implements OnInit {
   ngOnInit() {
 }
 
-  async onEnter(){
+  async onEnter(event: any) {
+    event.target.blur();
     this.plusGuest = [];
     this.Warning = "";
     this.GuestName = "";   
@@ -237,7 +237,7 @@ export class ConfirmationPage implements OnInit {
   }
 
   mensajeDeconfirmacion() {
-      const mensajeGuestConfirmacion = "\nYa reservamos tu silla, tu plato… y tu pedazo de bizcocho.\n¡Nos hace muy felices saber que vienes! ";
+      const mensajeGuestConfirmacion = "\nYa reservamos tu silla, tu plato… y tu pedazo de bizcocho.\n¡Nos hace muy felices saber que vienes! Guarda muy bien tu sobre de la invitación y las taquillas. Será requerido en momento de la entrada.";
       const mensajeGuestNoConfirmacion = "\nTe vamos a extrañar, pero entendemos.\nPrometemos compartir fotos, chismes y tal vez una selfie con el bizcocho.";
       const mensajeFamilyConfirmacion = this.familyGuest ? `\n${this.familyGuest.guestName} también ha confirmado su asistencia.` : "";
       const mensajeFamilyNoConfirmacion = this.familyGuest ? `\n${this.familyGuest.guestName} también confirmo` : "";

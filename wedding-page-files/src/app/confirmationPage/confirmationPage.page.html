@@ -10,12 +10,18 @@
   <div>
     <h1 class="tittles">Formulario de confirmación</h1>
     <ion-label>Favor de ingresar su nombre</ion-label>
-    <ion-input [(ngModel)]="guestNameValue" placeholder="Ingrese el nombre" style="width: 50%; margin: 0 auto;" (keyup.enter)="onEnter()" (ionInput)="onChange()"></ion-input>        
+    <ion-input [(ngModel)]="guestNameValue" placeholder="Ingrese el nombre" style="width: 50%; margin: 0 auto;" (keyup.enter)="onEnter($event)" (ionInput)="onChange()"></ion-input>        
     <ion-spinner name="circles" *ngIf="loading"></ion-spinner>
     <ion-label class="warning">{{Warning}}</ion-label>
     <h3 class="tittles">{{GuestName}}</h3>
       <div *ngIf="validateGuest">
-        <ion-checkbox [(ngModel)]="isAttending" style="white-space: pre-line;">{{mensajeParaConfirmar}}</ion-checkbox>
+        <p class="responsive-inline-text">
+        {{ mensajeParaConfirmar }}
+          <ion-checkbox
+          [(ngModel)]="isAttending"
+          class="inline-checkbox"
+          ></ion-checkbox>
+        </p>        
         <div *ngIf="familyGuest != null">
           <h3 class="tittles">{{familyGuest.guestName}}</h3>
           <ion-checkbox [(ngModel)]="familyGuest.confirmation" style="white-space: pre-line;">{{mensajeParaConfirmar}}</ion-checkbox>

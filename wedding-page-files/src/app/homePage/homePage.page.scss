@@ -32,7 +32,7 @@ ion-menu-button {
 .leftBottomCorner {
   position: absolute;
   z-index: 10;
-  width: clamp(150px, 35vw, 225px); // min: 100px, ideal: 15vw, max: 225px
+  width: clamp(150px, 35vw, 225px);
   height: auto;
 }
 
