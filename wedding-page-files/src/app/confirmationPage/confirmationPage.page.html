@@ -24,7 +24,13 @@
         </p>        
         <div *ngIf="familyGuest != null">
           <h3 class="tittles">{{familyGuest.guestName}}</h3>
-          <ion-checkbox [(ngModel)]="familyGuest.confirmation" style="white-space: pre-line;">{{mensajeParaConfirmar}}</ion-checkbox>
+          <p class="responsive-inline-text">
+          {{ mensajeParaConfirmar }}
+            <ion-checkbox
+            [(ngModel)]="familyGuest.confirmation"
+            class="inline-checkbox"
+            ></ion-checkbox>
+          </p>
         </div>
         <div *ngIf="guest && guest.numberofPlus !== null && guest.numberofPlus > 0">
           <h3 class="tittles">Acompañantes:</h3>

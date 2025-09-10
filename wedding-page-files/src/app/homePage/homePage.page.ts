@@ -1,5 +1,4 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   standalone: false,
@@ -8,7 +7,8 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./homePage.page.scss'],
 })
 export class HomePage implements OnInit {
-  //private activatedRoute = inject(ActivatedRoute);
+  confirmationButton = new Date().toISOString().split('T')[0] < '2025-10-02';
+ 
   constructor() {}
 
   ngOnInit() {
