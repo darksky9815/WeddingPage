@@ -7,7 +7,7 @@ import { Component, inject, OnInit } from '@angular/core';
   styleUrls: ['./homePage.page.scss'],
 })
 export class HomePage implements OnInit {
-  confirmationButton = new Date().toISOString().split('T')[0] < '2025-10-02';
+  confirmationButton = new Date().toISOString().split('T')[0] < '2025-10-26';
  
   constructor() {}
 
