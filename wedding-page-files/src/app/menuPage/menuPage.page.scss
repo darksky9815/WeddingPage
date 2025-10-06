@@ -1,6 +1,7 @@
 ion-menu-button {
   color: var(--ion-color-primary);
 }
+
 #container {
   text-align: center;
   position: absolute;
@@ -63,24 +64,6 @@ ion-menu-button {
   justify-content: center;
 }
 
-.map {
-  position: relative;
-  width: 100%;
-  max-width: 900vmin; 
-  margin: 2rem auto 1rem auto;
-  padding-bottom: 56.25%; 
-  height: 0;
-  overflow: hidden;
-  margin-bottom: 1rem;
-}
-.map iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
 .header{
   font-family: AnandaBlack;
 }
@@ -88,15 +71,4 @@ ion-menu-button {
 .tittles{
   font-family: AnandaBlack;
   font-size: 2.5em;  
-}
-.number{
-  font-family: Merlot;
-  font-size:1.5em;
-}
-.font{
-  font-family: AnandaBlack;
-  font-size:1.5em;
-}
-.casualGrid{
-  --ion-grid-columns: 3;
 }

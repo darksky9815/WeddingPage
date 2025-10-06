@@ -22,6 +22,16 @@ const routes: Routes = [
     .then(m => m.EditGuestListPageModule)
   },
   {
+    path: 'menuPage',
+    loadChildren: () => import('./menuPage/menuPage.module')
+    .then(m => m.MenuPageModule)
+  },
+  {
+    path: 'itineraryPage',
+    loadChildren: () => import('./itinerary/itineraryPage.module')
+    .then(m => m.ItineraryPageModule)
+  },
+  {
     path: 'folder/:id',
     loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
   }

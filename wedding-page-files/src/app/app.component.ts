@@ -12,8 +12,8 @@ export class AppComponent {
   public appPages = [
     { title: 'Home', url: '/homepage', icon: 'home', visible: true },
     { title: 'Confirmation Date', url: '/confirmationpage', icon: 'calendar', visible: new Date().toISOString().split('T')[0] < '2025-10-26' },
-    { title: 'Itinerary', url: '/folder/Itinerary', icon: 'newspaper', visible: new Date().toISOString().split('T')[0] === '2025-12-06' },
-    { title: 'Food Menu', url: '/folder/Food Menu', icon: 'book', visible: new Date().toISOString().split('T')[0] === '2025-12-06' },
+    { title: 'Itinerary', url: '/itineraryPage', icon: 'newspaper', visible: true },
+    { title: 'Food Menu', url: '/menuPage', icon: 'book', visible: true },
     { title: 'Table Arrangement', url: '/folder/Table Arrangement', icon: 'restaurant', visible: new Date().toISOString().split('T')[0] === '2025-12-06' }
   ];
   constructor() {}
