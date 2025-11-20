@@ -32,6 +32,16 @@ const routes: Routes = [
     .then(m => m.ItineraryPageModule)
   },
   {
+    path: 'tablesPage',
+    loadChildren: () => import('./tables/tablesPage.module')
+    .then(m => m.TablesPageModule)
+  },  
+  {
+    path: 'gamesPage',
+    loadChildren: () => import('./games/gamesPage.modules')
+    .then(m => m.GamesPageModule)
+  },
+  {
     path: 'folder/:id',
     loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
   }
