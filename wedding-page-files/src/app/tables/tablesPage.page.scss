@@ -76,3 +76,23 @@ ion-menu-button {
 .casualGrid{
   --ion-grid-columns: 2;
 }
+ion-col { max-width: 220px; text-align: center;} 
+
+@media (max-width: 600px) {
+  .casualGrid {
+    --ion-grid-columns: 1;
+  }
+  .casualGrid ion-row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .casualGrid ion-col {
+    max-width: none;
+    width: 100%;
+    flex: 0 0 auto;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+    text-align: center;
+  }
+}

@@ -14,8 +14,8 @@ export class AppComponent {
     { title: 'Confirmation Date', url: '/confirmationpage', icon: 'calendar', visible: new Date().toISOString().split('T')[0] < '2025-10-26' },
     { title: 'Itinerary', url: '/itineraryPage', icon: 'newspaper', visible: true },
     { title: 'Food Menu', url: '/menuPage', icon: 'book', visible: true },
-    { title: 'Table Arrangement', url: '/tablesPage', icon: 'restaurant', visible: true },
-    { title: 'Games & Activities', url: '/gamesPage', icon: 'game-controller', visible: true }
+    { title: 'Table Arrangement', url: '/tablesPage', icon: 'restaurant', visible: new Date().toISOString().split('T')[0] === '2025-12-06' },
+    { title: 'Games & Activities', url: '/gamesPage', icon: 'game-controller', visible: new Date().toISOString().split('T')[0] === '2025-12-06' }
   ];
   constructor() {}
 }
