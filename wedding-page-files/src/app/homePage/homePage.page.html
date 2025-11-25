@@ -18,9 +18,18 @@
     <h4> Acompañanos en nuestra nueva aventura</h4>
   </div>
   <br><br><br>
-  <div>
+  <div><div *ngIf="weddingDayButton">
     <img src="assets/img/separationCategories.png" style="width: 15%;"/>    
     <br><br><br>
+    
+      <ion-button routerLink="/itineraryPage">Itinerario</ion-button>
+      <ion-button routerLink="/menuPage">Menú</ion-button><br>
+      <ion-button routerLink="/gamesPage">Juegos y Actividades</ion-button>
+      <ion-button routerLink="/tablesPage">Arreglo de Mesas</ion-button><br>
+      <br><br><br>
+    </div>
+     <img src="assets/img/separationCategories.png" style="width: 15%;"/>
+     <br><br><br>
     <ion-label class="tittles">Detalles de Localidad</ion-label><br>
     <h2><strong>¿Dónde será la fiesta?</strong><br>
       La fiesta se llevará a cabo en el hermoso <strong>Espadas View Aibonito Camping</strong>, un lugar mágico rodeado de naturaleza y vistas impresionantes. 

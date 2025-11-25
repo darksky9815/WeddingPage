@@ -8,7 +8,7 @@ import { Component, inject, OnInit } from '@angular/core';
 })
 export class HomePage implements OnInit {
   confirmationButton = new Date().toISOString().split('T')[0] < '2025-10-26';
- 
+  weddingDayButton = new Date().toISOString().split('T')[0] === '2025-12-06';
   constructor() {}
 
   ngOnInit() {
